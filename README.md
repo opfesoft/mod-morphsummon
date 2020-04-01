@@ -3,9 +3,6 @@
 ![mod-morphsummon](https://raw.githubusercontent.com/azerothcore/mod-morphsummon/master/icon.png)
 
 
-Latest build status with azerothcore: [![Build Status](https://travis-ci.org/azerothcore/mod-morphsummon.svg?branch=master)](https://travis-ci.org/azerothcore/mod-morphsummon)
-
-
 ## Important notes
 
 You have to use at least AzerothCore commit [3f0739f](https://github.com/azerothcore/azerothcore-wotlk/commit/3f0739f1c9a5289444ff9d62834b7ceb38879ba9).
