@@ -1,6 +1,6 @@
 # mod-morphsummon
 
-![mod-morphsummon](https://raw.githubusercontent.com/azerothcore/mod-morphsummon/master/icon.png)
+![mod-morphsummon](https://gitlab.com/opfesoft/mod-morphsummon/-/raw/master/icon.png)
 
 
 ## Important notes
@@ -67,10 +67,10 @@ If you need to change the module configuration, go to your server configuration 
 
 
 ## Screenshots
-![NPC](https://raw.githubusercontent.com/azerothcore/mod-morphsummon/master/images/morphsummon1.jpg "NPC")
-![Ghoul](https://raw.githubusercontent.com/azerothcore/mod-morphsummon/master/images/morphsummon2.jpg "Ghoul")
-![Felguard](https://raw.githubusercontent.com/azerothcore/mod-morphsummon/master/images/morphsummon3.jpg "Felguard")
-![Water Elemental](https://raw.githubusercontent.com/azerothcore/mod-morphsummon/master/images/morphsummon4.jpg "Water Elemental")
+![NPC](https://gitlab.com/opfesoft/mod-morphsummon/-/raw/master/images/morphsummon1.jpg "NPC")
+![Ghoul](https://gitlab.com/opfesoft/mod-morphsummon/-/raw/master/images/morphsummon2.jpg "Ghoul")
+![Felguard](https://gitlab.com/opfesoft/mod-morphsummon/-/raw/master/images/morphsummon3.jpg "Felguard")
+![Water Elemental](https://gitlab.com/opfesoft/mod-morphsummon/-/raw/master/images/morphsummon4.jpg "Water Elemental")
 
 
 ## Credits
