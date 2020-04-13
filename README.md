@@ -3,11 +3,6 @@
 ![mod-morphsummon](https://gitlab.com/opfesoft/mod-morphsummon/-/raw/master/icon.png)
 
 
-## Important notes
-
-You have to use at least AzerothCore commit [3f0739f](https://github.com/azerothcore/azerothcore-wotlk/commit/3f0739f1c9a5289444ff9d62834b7ceb38879ba9).
-
-
 ## Description
 
 This module allows Warlocks, Death Knights and Mages to alter the appearance of their summoned permanent creatures (incl. the Felguard's weapon). The appropriate model / item IDs can be specified in the configuration file.
@@ -32,7 +27,7 @@ Clone Git repository:
 
 ```
 cd <ACdir>
-git clone https://github.com/azerothcore/mod-morphsummon.git modules/mod-morphsummon
+git clone https://gitlab.com/opfesoft/mod-morphsummon.git modules/mod-morphsummon
 ```
 
 Import SQL automatically:
@@ -75,10 +70,8 @@ If you need to change the module configuration, go to your server configuration 
 
 ## Credits
 
-[Stoabrogga](https://github.com/Stoabrogga): author
-
-AzerothCore: [repository](https://github.com/azerothcore) - [website](http://azerothcore.org/) - [discord chat community](https://discord.gg/gkt4y2x)
+Stoabrogga: author
 
 
 ## License
-This code and content is released under the [GNU AGPL v3](https://github.com/azerothcore/azerothcore-wotlk/blob/master/LICENSE-AGPL3).
+This code and content is released under the [GNU AGPL v3](LICENSE.md).
