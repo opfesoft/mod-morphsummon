@@ -2,8 +2,10 @@
 
 MOD_MORPHSUMMON_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )/" && pwd )"
 
-source $MOD_MORPHSUMMON_ROOT"/conf/conf.sh.dist"
+DB_CHARACTERS_CUSTOM_PATHS+=(
+        $MOD_MORPHSUMMON_ROOT"/data/sql/db-characters/"
+)
 
-if [ -f $MOD_MORPHSUMMON_ROOT"/conf/conf.sh" ]; then
-    source $MOD_MORPHSUMMON_ROOT"/conf/conf.sh"
-fi
+DB_WORLD_CUSTOM_PATHS+=(
+        $MOD_MORPHSUMMON_ROOT"/data/sql/db-world/"
+)
