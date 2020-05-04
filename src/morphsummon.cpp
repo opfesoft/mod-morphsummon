@@ -10,6 +10,7 @@
 #include "ScriptedGossip.h"
 #include "ScriptedCreature.h"
 #include "SpellAuras.h"
+#include "Group.h"
 
 std::map<std::string, uint32> warlock_imp;
 std::map<std::string, uint32> warlock_voidwalker;
@@ -39,6 +40,7 @@ enum MorphSummonGossip
     MORPH_PAGE_MAX                        =    901,
     MORPH_MAIN_MENU                       =     50,
     MORPH_CLOSE_MENU                      =     60,
+    MORPH_NEW_NAME                        =     70,
     MORPH_GOSSIP_TEXT_HELLO               = 601072,
     MORPH_GOSSIP_TEXT_SORRY               = 601073,
     MORPH_GOSSIP_TEXT_CHOICE              = 601074,
@@ -47,6 +49,7 @@ enum MorphSummonGossip
     MORPH_GOSSIP_MENU_CHOICE              =  61074,
     MORPH_GOSSIP_OPTION_POLYMORPH         =      0,
     MORPH_GOSSIP_OPTION_FELGUARD_WEAPON   =      1,
+    MORPH_GOSSIP_OPTION_NEW_NAME          =      2,
     MORPH_GOSSIP_OPTION_SORRY             =      0,
     MORPH_GOSSIP_OPTION_CHOICE_BACK       =      0,
     MORPH_GOSSIP_OPTION_CHOICE_NEXT       =      1,
@@ -132,6 +135,11 @@ public:
         {
             CloseGossipMenuFor(player);
             return true;
+        }
+        else if (action == MORPH_NEW_NAME)
+        {
+            GenerateNewName(player);
+            return CreateMainMenu(player, creature);
         }
         else if (action >= MORPH_PAGE_START_WARLOCK_IMP && action < MORPH_PAGE_START_WARLOCK_VOIDWALKER)
         {
@@ -260,25 +268,37 @@ private:
             {
                 case SUMMON_IMP:
                     if (!warlock_imp.empty())
+                    {
                         AddGossipItemFor(player, MORPH_GOSSIP_MENU_HELLO, MORPH_GOSSIP_OPTION_POLYMORPH, GOSSIP_SENDER_MAIN, MORPH_PAGE_START_WARLOCK_IMP);
+                        AddGossipItemFor(player, MORPH_GOSSIP_MENU_HELLO, MORPH_GOSSIP_OPTION_NEW_NAME, GOSSIP_SENDER_MAIN, MORPH_NEW_NAME);
+                    }
                     else
                         sorry = true;
                     break;
                 case SUMMON_VOIDWALKER:
                     if (!warlock_voidwalker.empty())
+                    {
                         AddGossipItemFor(player, MORPH_GOSSIP_MENU_HELLO, MORPH_GOSSIP_OPTION_POLYMORPH, GOSSIP_SENDER_MAIN, MORPH_PAGE_START_WARLOCK_VOIDWALKER);
+                        AddGossipItemFor(player, MORPH_GOSSIP_MENU_HELLO, MORPH_GOSSIP_OPTION_NEW_NAME, GOSSIP_SENDER_MAIN, MORPH_NEW_NAME);
+                    }
                     else
                         sorry = true;
                     break;
                 case SUMMON_SUCCUBUS:
                     if (!warlock_succubus.empty())
+                    {
                         AddGossipItemFor(player, MORPH_GOSSIP_MENU_HELLO, MORPH_GOSSIP_OPTION_POLYMORPH, GOSSIP_SENDER_MAIN, MORPH_PAGE_START_WARLOCK_SUCCUBUS);
+                        AddGossipItemFor(player, MORPH_GOSSIP_MENU_HELLO, MORPH_GOSSIP_OPTION_NEW_NAME, GOSSIP_SENDER_MAIN, MORPH_NEW_NAME);
+                    }
                     else
                         sorry = true;
                     break;
                 case SUMMON_FELHUNTER:
                     if (!warlock_felhunter.empty())
+                    {
                         AddGossipItemFor(player, MORPH_GOSSIP_MENU_HELLO, MORPH_GOSSIP_OPTION_POLYMORPH, GOSSIP_SENDER_MAIN, MORPH_PAGE_START_WARLOCK_FELHUNTER);
+                        AddGossipItemFor(player, MORPH_GOSSIP_MENU_HELLO, MORPH_GOSSIP_OPTION_NEW_NAME, GOSSIP_SENDER_MAIN, MORPH_NEW_NAME);
+                    }
                     else
                         sorry = true;
                     break;
@@ -286,6 +306,7 @@ private:
                     if (!warlock_felguard.empty())
                     {
                         AddGossipItemFor(player, MORPH_GOSSIP_MENU_HELLO, MORPH_GOSSIP_OPTION_POLYMORPH, GOSSIP_SENDER_MAIN, MORPH_PAGE_START_WARLOCK_FELGUARD);
+                        AddGossipItemFor(player, MORPH_GOSSIP_MENU_HELLO, MORPH_GOSSIP_OPTION_NEW_NAME, GOSSIP_SENDER_MAIN, MORPH_NEW_NAME);
 
                         if (!felguard_weapon.empty())
                         {
@@ -301,7 +322,10 @@ private:
                     break;
                 case RAISE_DEAD:
                     if (!death_knight_ghoul.empty())
+                    {
                         AddGossipItemFor(player, MORPH_GOSSIP_MENU_HELLO, MORPH_GOSSIP_OPTION_POLYMORPH, GOSSIP_SENDER_MAIN, MORPH_PAGE_START_DEATH_KNIGHT_GHOUL);
+                        AddGossipItemFor(player, MORPH_GOSSIP_MENU_HELLO, MORPH_GOSSIP_OPTION_NEW_NAME, GOSSIP_SENDER_MAIN, MORPH_NEW_NAME);
+                    }
                     else
                         sorry = true;
                     break;
@@ -389,6 +413,25 @@ private:
             }
 
             AddGossip(player, sender, modelMap, startPage);
+        }
+    }
+
+    void GenerateNewName(Player* player)
+    {
+        if (Pet* pet = player->GetPet())
+        {
+            std::string new_name = sObjectMgr->GeneratePetName(pet->GetEntry());
+
+            if (!new_name.empty())
+            {
+                pet->SetName(new_name);
+                Unit* owner = pet->GetOwner();
+
+                if (owner && (owner->GetTypeId() == TYPEID_PLAYER) && owner->ToPlayer()->GetGroup())
+                    owner->ToPlayer()->SetGroupUpdateFlag(GROUP_UPDATE_FLAG_PET_NAME);
+
+                pet->SetUInt32Value(UNIT_FIELD_PET_NAME_TIMESTAMP, uint32(time(NULL)));
+            }
         }
     }
 };
