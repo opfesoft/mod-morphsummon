@@ -20,6 +20,7 @@ std::map<std::string, uint32> warlock_felguard;
 std::map<std::string, uint32> felguard_weapon;
 std::map<std::string, uint32> death_knight_ghoul;
 std::map<std::string, uint32> mage_water_elemental;
+std::list<uint32> randomModelIds;
 std::list<uint32> randomVisualEffectSpells;
 std::list<uint32> randomMainHandEquip;
 uint32 minTimeVisualEffect;
@@ -76,6 +77,11 @@ enum MorphEffectSpells
 enum MorphSummonEvents
 {
     MORPH_EVENT_CAST_SPELL                =      1
+};
+
+enum MorphSummonModelIds
+{
+    MORPH_DEFAULT_MODEL_ID                =  15665
 };
 
 class MorphSummon_PlayerScript : public PlayerScript
@@ -222,6 +228,11 @@ public:
 
         void Reset() override
         {
+            if (!randomModelIds.empty())
+                me->SetDisplayId(acore::Containers::SelectRandomContainerElement(randomModelIds));
+            else
+                me->SetDisplayId(MORPH_DEFAULT_MODEL_ID);
+
             if (!randomMainHandEquip.empty())
             {
                 SetEquipmentSlots(false, acore::Containers::SelectRandomContainerElement(randomMainHandEquip), EQUIP_UNEQUIP, EQUIP_UNEQUIP);
@@ -464,6 +475,16 @@ public:
         {
             uint32 itemId = atoi(delimitedValue.c_str());
             randomMainHandEquip.push_back(itemId);
+        }
+
+        randomModelIds.clear();
+        stringStream.clear();
+        stringStream.str(sConfigMgr->GetStringDefault("MorphSummon.RandomModelIds", "15665"));
+
+        while (std::getline(stringStream, delimitedValue, ','))
+        {
+            uint32 modelId = atoi(delimitedValue.c_str());
+            randomModelIds.push_back(modelId);
         }
 
         minTimeVisualEffect = sConfigMgr->GetIntDefault("MorphSummon.MinTimeVisualEffect", 30000);

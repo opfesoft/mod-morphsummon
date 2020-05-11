@@ -28,6 +28,10 @@ MorphSummon.Mage.WaterElemental = "Water Elemental,525,Water Elemental Green,490
 
 MorphSummon.Warlock.Felguard.Weapon = "Axe (Default),22199,Sword 1,1899,Sword 2,10613,Sword 3,10614,Sword 4,12889,Sword 5,12902,Sword 6,13504,Mace 1,2809,Mace 2,5491,Mace 3,12950,Mace 4,30670,Axe 1,5287,Axe 2,14643,Axe 3,14870,Polearm 1,28365"
 
+# List containing model IDs for the polymorph NPC (randomly chosen on reset)
+
+MorphSummon.RandomModelIds = "15665"
+
 # List with visual effect spells; the polymorph NPC will randomly choose one to cast after waiting between "minTimeVisualEffect" and "maxTimeVisualEffect" (values in milliseconds)
 
 MorphSummon.RandomVisualEffectSpells = "45959,50772"
