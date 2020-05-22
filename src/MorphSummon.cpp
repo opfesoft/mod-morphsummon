@@ -2,6 +2,7 @@
  * Copyright (C) 2016+ AzerothCore <www.azerothcore.org>, released under GNU AGPL v3 license: https://github.com/azerothcore/azerothcore-wotlk/blob/master/LICENSE-AGPL3
 */
 
+#include "MorphSummon.h"
 #include "ScriptMgr.h"
 #include "Player.h"
 #include "Chat.h"
@@ -11,6 +12,7 @@
 #include "ScriptedCreature.h"
 #include "SpellAuras.h"
 #include "Group.h"
+#include "ScriptMgrMacros.h"
 
 std::map<std::string, uint32> warlock_imp;
 std::map<std::string, uint32> warlock_voidwalker;
@@ -83,6 +85,16 @@ enum MorphSummonModelIds
 {
     MORPH_DEFAULT_MODEL_ID                =  15665
 };
+
+void MorphSummonScriptMgr::OnAfterPolymorph(Player* player, Pet* pet, uint32 spell, bool polymorphPet, uint32 morphId)
+{
+    FOREACH_SCRIPT(MorphSummonModuleScript)->OnAfterPolymorph(player, pet, spell, polymorphPet, morphId);
+}
+
+MorphSummonModuleScript::MorphSummonModuleScript(const char* name) : ModuleScript(name)
+{
+    ScriptRegistry<MorphSummonModuleScript>::AddScript(this);
+}
 
 class MorphSummon_PlayerScript : public PlayerScript
 {
@@ -404,7 +416,7 @@ private:
                         pet->SetDisplayId(morphId);
                         pet->SetNativeDisplayId(morphId);
 
-                        if (pet->GetUInt32Value(UNIT_CREATED_BY_SPELL) == SUMMON_WATER_ELEMENTAL)
+                        if (spell == SUMMON_WATER_ELEMENTAL)
                         {
                             // The size of the water elemental model is not automatically scaled, so needs to be done here
                             CreatureDisplayInfoEntry const* displayInfo = sCreatureDisplayInfoStore.LookupEntry(pet->GetNativeDisplayId());
@@ -420,6 +432,8 @@ private:
                         pet->SetUInt32Value(UNIT_VIRTUAL_ITEM_SLOT_ID, morphId);
                         CharacterDatabase.PExecute("REPLACE INTO `mod_morphsummon_felguard_weapon` (`PlayerGUIDLow`, `FelguardItemID`) VALUES (%u, %u)", player->GetGUIDLow(), morphId);
                     }
+
+                    sMorphSummonScriptMgr->OnAfterPolymorph(player, pet, spell, polymorphPet, morphId);
                 }
             }
 
