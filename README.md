@@ -1,6 +1,6 @@
 # mod-morphsummon
 
-![mod-morphsummon](https://gitlab.com/opfesoft/mod-morphsummon/-/raw/master/icon.png)
+![mod-morphsummon](icon.png)
 
 
 ## Description
@@ -53,10 +53,10 @@ If you need to change the module configuration, go to your server configuration 
 
 ## Screenshots
 
-![NPC](https://gitlab.com/opfesoft/mod-morphsummon/-/raw/master/images/morphsummon1.jpg "NPC")
-![Ghoul](https://gitlab.com/opfesoft/mod-morphsummon/-/raw/master/images/morphsummon2.jpg "Ghoul")
-![Felguard](https://gitlab.com/opfesoft/mod-morphsummon/-/raw/master/images/morphsummon3.jpg "Felguard")
-![Water Elemental](https://gitlab.com/opfesoft/mod-morphsummon/-/raw/master/images/morphsummon4.jpg "Water Elemental")
+![NPC](images/morphsummon1.jpg "NPC")
+![Ghoul](images/morphsummon2.jpg "Ghoul")
+![Felguard](images/morphsummon3.jpg "Felguard")
+![Water Elemental](images/morphsummon4.jpg "Water Elemental")
 
 
 ## Credits
