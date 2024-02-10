@@ -14,6 +14,7 @@
 #include "SpellAuras.h"
 #include "Group.h"
 #include "ScriptMgrMacros.h"
+#include "CreatureTextMgr.h"
 
 std::map<std::string, uint32> warlock_imp;
 std::map<std::string, uint32> warlock_voidwalker;
@@ -64,6 +65,12 @@ enum MorphSummonGossip
     MORPH_GOSSIP_OPTION_CHOICE_BACK         =        0,
     MORPH_GOSSIP_OPTION_CHOICE_NEXT         =        1,
     MORPH_GOSSIP_OPTION_CHOICE_PREVIOUS     =        2,
+};
+
+enum MorphSummonCreatureTexts
+{
+    MORPH_CREATURE_TEXT_CUSTOM_AURA_ADDED   =        0,
+    MORPH_CREATURE_TEXT_CUSTOM_AURA_REMOVED =        1,
 };
 
 enum MorphSummonSpells
@@ -533,14 +540,14 @@ private:
             {
                 pet->RemoveAurasDueToSpell(spellId);
                 CharacterDatabase.PExecute("DELETE FROM `mod_morphsummon_custom_auras` WHERE `PlayerGUIDLow` = %u AND `PetID` = %u AND `CustomAura` = %u", player->GetGUIDLow(), pet->GetCharmInfo()->GetPetNumber(), spellId);
-                creature->MonsterWhisper("Custom aura removed", player, false);
+                sCreatureTextMgr->SendChat(creature, MORPH_CREATURE_TEXT_CUSTOM_AURA_REMOVED, player);
             }
             else
             {
                 if (!pet->HasAura(spellId))
                     pet->AddAura(spellId, pet);
                 CharacterDatabase.PExecute("INSERT INTO `mod_morphsummon_custom_auras` (`PlayerGUIDLow`, `PetID`, `CustomAura`) VALUES (%u, %u, %u)", player->GetGUIDLow(), pet->GetCharmInfo()->GetPetNumber(), spellId);
-                creature->MonsterWhisper("Custom aura added", player, false);
+                sCreatureTextMgr->SendChat(creature, MORPH_CREATURE_TEXT_CUSTOM_AURA_ADDED, player);
             }
         }
 

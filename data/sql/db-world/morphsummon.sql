@@ -17,6 +17,12 @@ INSERT INTO `creature_template` (`entry`, `difficulty_entry_1`, `difficulty_entr
 VALUES
 (@ENTRY,0,0,0,0,0,@MODELID,0,0,0,@NAME,@SUBNAME,NULL,0,80,80,2,35,1,1,1.14286,1,0,0,1,2000,2000,8,0,2048,0,0,0,0,0,0,7,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,'',0,3,1,1,1,1,0,0,1,0,2,@SCRIPTNAME);
 
+DELETE FROM `creature_text` WHERE `CreatureId` = @ENTRY;
+INSERT INTO `creature_text` (`CreatureID`, `GroupID`, `ID`, `Text`, `Type`, `Language`, `Probability`, `Emote`, `Duration`, `Sound`, `BroadcastTextId`, `TextRange`, `comment`)
+VALUES
+(@ENTRY,0,0,'Custom aura added',15,0,100,0,0,0,0,0,'Cet Keres'),
+(@ENTRY,1,0,'Custom aura removed',15,0,100,0,0,0,0,0,'Cet Keres');
+
 DELETE FROM `npc_text` WHERE `ID` IN (@NPC_TEXT_HELLO,@NPC_TEXT_SORRY,@NPC_TEXT_CHOICE);
 INSERT INTO `npc_text` (`ID`, `text0_0`)
 VALUES
