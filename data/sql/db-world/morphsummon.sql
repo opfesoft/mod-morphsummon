@@ -30,6 +30,8 @@ VALUES
 (@MENU_HELLO,0,0,'Choose polymorph',0,0,0,0,0,0,0,'',0),
 (@MENU_HELLO,1,0,'Choose Felguard weapon',0,0,0,0,0,0,0,'',0),
 (@MENU_HELLO,2,0,'Generate new name',0,0,0,0,0,0,0,'',0),
+(@MENU_HELLO,3,0,'Toggle custom auras',0,0,0,0,0,0,0,'',0),
+(@MENU_HELLO,4,0,'Remove custom auras',0,0,0,0,0,0,0,'',0),
 (@MENU_SORRY,0,0,'Ah, nevermind.',0,0,0,0,0,0,0,'',0),
 (@MENU_CHOICE,0,0,'Back..',0,0,0,0,0,0,0,'',0),
 (@MENU_CHOICE,1,4,'Next..',0,0,0,0,0,0,0,'',0),

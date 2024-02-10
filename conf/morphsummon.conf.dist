@@ -41,3 +41,7 @@ MorphSummon.MaxTimeVisualEffect = 90000
 # List containing main hand equipment; the polymorph NPC will randomly pick one when (re)spawned
 
 MorphSummon.RandomMainHandEquip = "28658,32374"
+
+# Custom auras
+
+MorphSummon.CustomAuras = "Ice Paws,54240,Shadowy Hands,34224,Warm Hands,45984,Shadowform,40973"
