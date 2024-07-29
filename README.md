@@ -1,4 +1,4 @@
-# mod-morphsummon
+# mod-morphsummon<br>(Discontinued as of 2024-07-29)
 
 ![mod-morphsummon](icon.png)
 
